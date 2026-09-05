@@ -5,23 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Timezone Clock</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="stars"></div>
     <div class="container">
         <div class="header">
-            <h1>🕐 Digital Timezone Clock</h1>
-            <p>View current time across different time zones</p>
+            <div class="header-content">
+                <h1><i class="fas fa-globe"></i> Global Time Zone Clock</h1>
+                <p>Track time across the world in real-time</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="clockCount">0</span>
+                    <span class="stat-label">Active Clocks</span>
+                </div>
+            </div>
         </div>
 
         <div class="main-content">
             <!-- Add Timezone Section -->
             <div class="add-timezone-section">
-                <h2>Add Timezone</h2>
+                <div class="section-header">
+                    <h2><i class="fas fa-plus-circle"></i> Add Timezone</h2>
+                </div>
                 <div class="add-timezone-form">
-                    <select id="timezoneSelect" class="timezone-select">
-                        <option value="">Select a timezone...</option>
-                    </select>
-                    <button class="btn-add-tz" onclick="addTimezone()">+ Add Timezone</button>
+                    <div class="input-wrapper">
+                        <select id="timezoneSelect" class="timezone-select">
+                            <option value="">🌍 Select a timezone...</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-icon"></i>
+                    </div>
+                    <button class="btn-add-tz" onclick="addTimezone()">
+                        <i class="fas fa-plus"></i> Add Timezone
+                    </button>
+                </div>
+                <div class="timezone-categories">
+                    <p style="color: #999; font-size: 0.9em; margin-top: 15px;">⭐ Popular:</p>
+                    <div class="quick-add-buttons">
+                        <button class="quick-add" onclick="addTimezoneWithName('Asia/Tokyo')">🗾 Tokyo</button>
+                        <button class="quick-add" onclick="addTimezoneWithName('Europe/London')">🇬🇧 London</button>
+                        <button class="quick-add" onclick="addTimezoneWithName('America/New_York')">🗽 New York</button>
+                        <button class="quick-add" onclick="addTimezoneWithName('Australia/Sydney')">🦘 Sydney</button>
+                    </div>
                 </div>
             </div>
 
@@ -32,12 +58,16 @@
 
             <!-- Empty State -->
             <div class="empty-state" id="emptyState">
-                <p>📍 No timezones added yet. Select a timezone above to get started!</p>
+                <div class="empty-state-content">
+                    <div class="empty-icon"><i class="fas fa-clock"></i></div>
+                    <p>No timezones added yet</p>
+                    <p style="color: #999; font-size: 0.95em;">Select a timezone above or use the quick add buttons</p>
+                </div>
             </div>
         </div>
 
         <div class="footer">
-            <p>&copy; 2026 Digital Timezone Clock. Made with ❤️</p>
+            <p><i class="fas fa-code"></i> Made with <span style="color: #ff6b6b;">❤</span> by spi703</p>
         </div>
     </div>
 

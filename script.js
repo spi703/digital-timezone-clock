@@ -1,35 +1,35 @@
-// List of common timezones
+// List of common timezones with flags and info
 const TIMEZONES = [
-    { name: 'UTC', offset: 'UTC±0' },
-    { name: 'London', offset: 'UTC±0' },
-    { name: 'Europe/Paris', offset: 'UTC+1' },
-    { name: 'Europe/Berlin', offset: 'UTC+1' },
-    { name: 'Europe/Moscow', offset: 'UTC+3' },
-    { name: 'Asia/Dubai', offset: 'UTC+4' },
-    { name: 'Asia/Kolkata', offset: 'UTC+5:30' },
-    { name: 'Asia/Bangkok', offset: 'UTC+7' },
-    { name: 'Asia/Hong_Kong', offset: 'UTC+8' },
-    { name: 'Asia/Shanghai', offset: 'UTC+8' },
-    { name: 'Asia/Tokyo', offset: 'UTC+9' },
-    { name: 'Asia/Seoul', offset: 'UTC+9' },
-    { name: 'Australia/Sydney', offset: 'UTC+10' },
-    { name: 'Pacific/Auckland', offset: 'UTC+12' },
-    { name: 'America/New_York', offset: 'UTC-5' },
-    { name: 'America/Chicago', offset: 'UTC-6' },
-    { name: 'America/Denver', offset: 'UTC-7' },
-    { name: 'America/Los_Angeles', offset: 'UTC-8' },
-    { name: 'America/Anchorage', offset: 'UTC-9' },
-    { name: 'Pacific/Honolulu', offset: 'UTC-10' },
-    { name: 'America/Toronto', offset: 'UTC-5' },
-    { name: 'America/Mexico_City', offset: 'UTC-6' },
-    { name: 'America/Sao_Paulo', offset: 'UTC-3' },
-    { name: 'America/Buenos_Aires', offset: 'UTC-3' },
-    { name: 'Africa/Cairo', offset: 'UTC+2' },
-    { name: 'Africa/Johannesburg', offset: 'UTC+2' },
-    { name: 'Asia/Jakarta', offset: 'UTC+7' },
-    { name: 'Asia/Singapour', offset: 'UTC+8' },
-    { name: 'Asia/Manila', offset: 'UTC+8' },
-    { name: 'Australia/Melbourne', offset: 'UTC+10' },
+    { name: 'UTC', offset: 'UTC±0', flag: '🌍' },
+    { name: 'Europe/London', offset: 'UTC±0', flag: '🇬🇧' },
+    { name: 'Europe/Paris', offset: 'UTC+1', flag: '🇫🇷' },
+    { name: 'Europe/Berlin', offset: 'UTC+1', flag: '🇩🇪' },
+    { name: 'Europe/Moscow', offset: 'UTC+3', flag: '🇷🇺' },
+    { name: 'Asia/Dubai', offset: 'UTC+4', flag: '🇦🇪' },
+    { name: 'Asia/Kolkata', offset: 'UTC+5:30', flag: '🇮🇳' },
+    { name: 'Asia/Bangkok', offset: 'UTC+7', flag: '🇹🇭' },
+    { name: 'Asia/Hong_Kong', offset: 'UTC+8', flag: '🇭🇰' },
+    { name: 'Asia/Shanghai', offset: 'UTC+8', flag: '🇨🇳' },
+    { name: 'Asia/Tokyo', offset: 'UTC+9', flag: '🇯🇵' },
+    { name: 'Asia/Seoul', offset: 'UTC+9', flag: '🇰🇷' },
+    { name: 'Australia/Sydney', offset: 'UTC+10', flag: '🇦🇺' },
+    { name: 'Pacific/Auckland', offset: 'UTC+12', flag: '🇳🇿' },
+    { name: 'America/New_York', offset: 'UTC-5', flag: '🗽' },
+    { name: 'America/Chicago', offset: 'UTC-6', flag: '🇺🇸' },
+    { name: 'America/Denver', offset: 'UTC-7', flag: '🏔️' },
+    { name: 'America/Los_Angeles', offset: 'UTC-8', flag: '☀️' },
+    { name: 'America/Anchorage', offset: 'UTC-9', flag: '🐻' },
+    { name: 'Pacific/Honolulu', offset: 'UTC-10', flag: '🏝️' },
+    { name: 'America/Toronto', offset: 'UTC-5', flag: '🇨🇦' },
+    { name: 'America/Mexico_City', offset: 'UTC-6', flag: '🇲🇽' },
+    { name: 'America/Sao_Paulo', offset: 'UTC-3', flag: '🇧🇷' },
+    { name: 'America/Buenos_Aires', offset: 'UTC-3', flag: '🇦🇷' },
+    { name: 'Africa/Cairo', offset: 'UTC+2', flag: '🇪🇬' },
+    { name: 'Africa/Johannesburg', offset: 'UTC+2', flag: '🇿🇦' },
+    { name: 'Asia/Jakarta', offset: 'UTC+7', flag: '🇮🇩' },
+    { name: 'Asia/Singapore', offset: 'UTC+8', flag: '🇸🇬' },
+    { name: 'Asia/Manila', offset: 'UTC+8', flag: '🇵🇭' },
+    { name: 'Australia/Melbourne', offset: 'UTC+10', flag: '🦘' },
 ];
 
 // Store for active clocks
@@ -50,7 +50,7 @@ function initializeTimezoneSelect() {
     TIMEZONES.forEach(tz => {
         const option = document.createElement('option');
         option.value = tz.name;
-        option.textContent = `${tz.name} (${tz.offset})`;
+        option.textContent = `${tz.flag} ${tz.name} (${tz.offset})`;
         select.appendChild(option);
     });
 }
@@ -84,14 +84,14 @@ function addTimezone() {
 
 // Add timezone with name
 function addTimezoneWithName(timezoneName) {
-    const clockId = `clock-${Date.now()}`;
+    const clockId = `clock-${Date.now()}-${Math.random()}`;
     activeClocks.push({
         id: clockId,
         timezone: timezoneName
     });
 
     renderClocks();
-    showAlert(`${timezoneName} added successfully`, 'success');
+    showAlert(`${timezoneName.replace(/_/g, ' ')} added successfully! ✓`, 'success');
 }
 
 // Remove timezone
@@ -105,8 +105,10 @@ function removeTimezone(clockId) {
 function renderClocks() {
     const grid = document.getElementById('clocksGrid');
     const emptyState = document.getElementById('emptyState');
+    const clockCount = document.getElementById('clockCount');
 
     grid.innerHTML = '';
+    clockCount.textContent = activeClocks.length;
 
     if (activeClocks.length === 0) {
         emptyState.classList.remove('hidden');
@@ -131,19 +133,27 @@ function createClockCard(clock) {
 
     const timezone = TIMEZONES.find(tz => tz.name === clock.timezone);
     const offset = timezone ? timezone.offset : 'UTC±0';
+    const flag = timezone ? timezone.flag : '🌍';
 
     card.innerHTML = `
         <div class="clock-header">
-            <div class="timezone-name">${clock.timezone.replace(/_/g, ' ')}</div>
-            <div class="timezone-offset">${offset}</div>
+            <div class="timezone-info">
+                <div class="timezone-name">
+                    <i class="fas fa-map-marker-alt"></i>
+                    ${flag} ${clock.timezone.replace(/_/g, ' ')}
+                </div>
+                <div class="timezone-offset">${offset}</div>
+            </div>
         </div>
-        <div class="digital-clock" id="display-${clock.id}">00:00:00</div>
+        <div class="digital-clock" id="display-${clock.id}">00<span class="colon">:</span>00<span class="colon">:</span>00</div>
         <div class="date-info">
             <div class="day" id="day-${clock.id}">Monday</div>
             <div class="full-date" id="date-${clock.id}">00 January 2026</div>
         </div>
-        <div style="text-align: center; margin-top: 15px;">
-            <button class="btn-remove" onclick="removeTimezone('${clock.id}')">Remove</button>
+        <div style="text-align: right; margin-top: 15px;">
+            <button class="btn-remove" onclick="removeTimezone('${clock.id}')">
+                <i class="fas fa-trash-alt"></i> Remove
+            </button>
         </div>
     `;
 
@@ -160,7 +170,6 @@ function updateAllClocks() {
 // Update single clock
 function updateClock(clock) {
     try {
-        // Get current time in the specified timezone
         const now = new Date();
         const options = {
             timeZone: clock.timezone,
@@ -191,10 +200,10 @@ function updateClock(clock) {
             }
         });
 
-        // Update display
+        // Update display with HTML to preserve colon animation
         const displayElement = document.getElementById(`display-${clock.id}`);
         if (displayElement) {
-            displayElement.textContent = `${hour}${createColon()}${minute}${createColon()}${second}`;
+            displayElement.innerHTML = `${hour}<span class="colon">:</span>${minute}<span class="colon">:</span>${second}`;
         }
 
         const dayElement = document.getElementById(`day-${clock.id}`);
@@ -211,22 +220,21 @@ function updateClock(clock) {
     }
 }
 
-// Create blinking colon
-function createColon() {
-    return '<span class="colon">:</span>';
-}
-
 // Show alert
 function showAlert(message, type) {
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type}`;
-    alertDiv.textContent = message;
+    
+    const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    alertDiv.innerHTML = `<i class="${icon}"></i><span>${message}</span>`;
 
     const mainContent = document.querySelector('.main-content');
     mainContent.insertBefore(alertDiv, mainContent.firstChild);
 
     // Remove alert after 3 seconds
     setTimeout(() => {
-        alertDiv.remove();
+        alertDiv.style.opacity = '0';
+        alertDiv.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => alertDiv.remove(), 300);
     }, 3000);
 }

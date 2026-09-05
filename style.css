@@ -5,68 +5,196 @@
 }
 
 :root {
-    --primary-color: #6366f1;
-    --secondary-color: #ec4899;
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
     --success-color: #10b981;
     --danger-color: #ef4444;
-    --dark-color: #1f2937;
+    --warning-color: #f59e0b;
+    --dark-color: #0f172a;
     --light-color: #f9fafb;
     --border-color: #e5e7eb;
     --text-color: #374151;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     min-height: 100vh;
     padding: 20px;
     color: var(--text-color);
+    position: relative;
+}
+
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.stars::before,
+.stars::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 
+        100px 100px rgba(255,255,255,0.8),
+        200px 200px rgba(255,255,255,0.5),
+        300px 50px rgba(255,255,255,0.7),
+        400px 300px rgba(255,255,255,0.6),
+        500px 100px rgba(255,255,255,0.9),
+        600px 400px rgba(255,255,255,0.5),
+        700px 150px rgba(255,255,255,0.8),
+        800px 350px rgba(255,255,255,0.7),
+        900px 200px rgba(255,255,255,0.6),
+        1000px 450px rgba(255,255,255,0.5);
+    animation: twinkle 3s infinite;
+}
+
+.stars::after {
+    box-shadow: 
+        150px 150px rgba(255,255,255,0.6),
+        250px 250px rgba(255,255,255,0.8),
+        350px 100px rgba(255,255,255,0.5),
+        450px 350px rgba(255,255,255,0.7),
+        550px 150px rgba(255,255,255,0.6),
+        650px 400px rgba(255,255,255,0.8),
+        750px 200px rgba(255,255,255,0.5),
+        850px 300px rgba(255,255,255,0.9),
+        950px 250px rgba(255,255,255,0.7),
+        1050px 400px rgba(255,255,255,0.6);
+    animation: twinkle 4s infinite reverse;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     background: white;
-    border-radius: 20px;
+    border-radius: 25px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
     color: white;
-    padding: 50px 20px;
+    padding: 60px 40px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-30px) translateX(30px); }
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
 }
 
 .header h1 {
-    font-size: 2.8em;
+    font-size: 3.2em;
     margin-bottom: 10px;
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .header p {
-    font-size: 1.1em;
-    opacity: 0.9;
+    font-size: 1.2em;
+    opacity: 0.95;
+    font-weight: 300;
+}
+
+.header-stats {
+    position: relative;
+    z-index: 1;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2em;
+    font-weight: 700;
+    color: #fff;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-top: 5px;
 }
 
 .main-content {
-    padding: 40px 30px;
+    padding: 50px 40px;
 }
 
-/* Add Timezone Section */
 .add-timezone-section {
-    background: var(--light-color);
-    padding: 30px;
-    border-radius: 15px;
-    margin-bottom: 40px;
-    border: 2px solid var(--border-color);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
+    padding: 40px;
+    border-radius: 20px;
+    margin-bottom: 50px;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    backdrop-filter: blur(10px);
 }
 
-.add-timezone-section h2 {
-    margin-bottom: 20px;
+.section-header {
+    margin-bottom: 25px;
+}
+
+.section-header h2 {
+    font-size: 1.6em;
     color: var(--dark-color);
-    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.section-header i {
+    color: var(--primary-color);
+    margin-right: 10px;
 }
 
 .add-timezone-form {
@@ -74,171 +202,324 @@ body {
     grid-template-columns: 1fr auto;
     gap: 15px;
     align-items: center;
+    margin-bottom: 25px;
+}
+
+.input-wrapper {
+    position: relative;
 }
 
 .timezone-select {
-    padding: 12px 15px;
-    border: 2px solid var(--border-color);
-    border-radius: 10px;
+    width: 100%;
+    padding: 14px 20px;
+    padding-right: 45px;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 12px;
     font-size: 1em;
     background: white;
     color: var(--text-color);
     cursor: pointer;
     transition: all 0.3s ease;
+    font-weight: 500;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.timezone-select:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
 }
 
 .timezone-select:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.select-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    pointer-events: none;
+    font-size: 0.8em;
 }
 
 .btn-add-tz {
-    padding: 12px 25px;
-    background: var(--primary-color);
+    padding: 14px 35px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1em;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
 
 .btn-add-tz:hover {
-    background: #4f46e5;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
 .btn-add-tz:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
 }
 
-/* Clocks Grid */
+.btn-add-tz i {
+    margin-right: 8px;
+}
+
+.timezone-categories {
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.quick-add-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.quick-add {
+    padding: 12px 16px;
+    background: white;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 10px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.quick-add:hover {
+    border-color: var(--primary-color);
+    background: rgba(102, 126, 234, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
+}
+
 .clocks-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
     margin-bottom: 40px;
 }
 
 .clock-card {
     background: white;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     border: 2px solid var(--border-color);
-    transition: all 0.3s ease;
-    animation: slideIn 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideIn 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.clock-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.4s ease;
 }
 
 .clock-card:hover {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px);
+    border-color: var(--primary-color);
+}
+
+.clock-card:hover::before {
+    opacity: 1;
 }
 
 .clock-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.timezone-info {
+    flex: 1;
 }
 
 .timezone-name {
-    font-size: 1.3em;
+    font-size: 1.5em;
     font-weight: 700;
     color: var(--dark-color);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timezone-name i {
+    font-size: 1.1em;
+    color: var(--primary-color);
 }
 
 .timezone-offset {
     font-size: 0.9em;
-    color: #999;
-    background: var(--light-color);
-    padding: 5px 12px;
+    color: #666;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 6px 14px;
     border-radius: 20px;
+    display: inline-block;
+    font-weight: 600;
 }
 
 .btn-remove {
-    background: var(--danger-color);
-    color: white;
-    border: none;
-    padding: 8px 15px;
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+    border: 2px solid rgba(239, 68, 68, 0.3);
+    padding: 8px 14px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 0.85em;
+    font-weight: 600;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .btn-remove:hover {
-    background: #dc2626;
+    background: var(--danger-color);
+    color: white;
+    border-color: var(--danger-color);
     transform: scale(1.05);
 }
 
 .digital-clock {
-    background: linear-gradient(135deg, var(--dark-color), #374151);
+    background: linear-gradient(135deg, var(--dark-color), #1e293b);
     color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 3em;
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: 3.5em;
     font-weight: 700;
-    padding: 30px;
-    border-radius: 10px;
+    padding: 40px 25px;
+    border-radius: 15px;
     text-align: center;
-    margin: 20px 0;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-    letter-spacing: 2px;
-    min-height: 100px;
+    margin: 25px 0;
+    text-shadow: 
+        0 0 10px rgba(0, 255, 0, 0.5),
+        0 0 20px rgba(0, 255, 0, 0.3);
+    letter-spacing: 3px;
+    min-height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        inset 0 0 10px rgba(0, 255, 0, 0.1),
+        0 5px 20px rgba(0, 0, 0, 0.15);
+    border: 2px solid rgba(0, 255, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.digital-clock::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(0, 255, 0, 0.05) 50%, 
+        transparent 100%);
+    animation: scan 3s linear infinite;
+    border-radius: 15px;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
 }
 
 .date-info {
     text-align: center;
     color: #666;
-    font-size: 0.95em;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid var(--border-color);
+    font-size: 1em;
+    padding: 20px 0;
+    border-top: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    position: relative;
+    z-index: 1;
 }
 
 .date-info .day {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--dark-color);
+    font-size: 1.1em;
 }
 
 .date-info .full-date {
     font-size: 0.9em;
     color: #999;
+    margin-top: 5px;
 }
 
-/* Empty State */
 .empty-state {
     text-align: center;
-    padding: 60px 20px;
+    padding: 100px 20px;
     color: #999;
-    font-size: 1.2em;
 }
 
 .empty-state.hidden {
     display: none;
 }
 
-/* Footer */
-.footer {
-    background: var(--dark-color);
-    color: white;
-    text-align: center;
-    padding: 20px;
+.empty-state-content {
+    animation: slideIn 0.5s ease;
 }
 
-/* Animations */
+.empty-icon {
+    font-size: 5em;
+    color: rgba(102, 126, 234, 0.3);
+    margin-bottom: 20px;
+}
+
+.empty-state p {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.footer {
+    background: linear-gradient(135deg, var(--dark-color), #1e293b);
+    color: white;
+    text-align: center;
+    padding: 30px;
+    font-weight: 500;
+}
+
+.footer i {
+    margin-right: 8px;
+}
+
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -247,69 +528,95 @@ body {
 }
 
 @keyframes blink {
-    0%, 49% {
-        opacity: 1;
-    }
-    50%, 100% {
-        opacity: 0.5;
-    }
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0.6; }
 }
 
 .colon {
     animation: blink 1s infinite;
+    display: inline-block;
 }
 
-/* Alert Styles */
 .alert {
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
+    padding: 18px 24px;
+    margin-bottom: 25px;
+    border-radius: 12px;
     animation: slideIn 0.3s ease;
+    border-left: 5px solid;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .alert-success {
     background: rgba(16, 185, 129, 0.1);
     color: var(--success-color);
-    border: 1px solid var(--success-color);
+    border-left-color: var(--success-color);
 }
 
 .alert-error {
     background: rgba(239, 68, 68, 0.1);
     color: var(--danger-color);
-    border: 1px solid var(--danger-color);
+    border-left-color: var(--danger-color);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+.alert i {
+    font-size: 1.2em;
+}
+
+@media (max-width: 1024px) {
     .header h1 {
-        font-size: 1.8em;
+        font-size: 2.5em;
     }
 
     .main-content {
-        padding: 20px;
+        padding: 40px 30px;
+    }
+
+    .clocks-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 40px 20px;
+    }
+
+    .header h1 {
+        font-size: 2em;
     }
 
     .add-timezone-form {
         grid-template-columns: 1fr;
     }
 
+    .btn-add-tz {
+        width: 100%;
+    }
+
+    .quick-add-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .clocks-grid {
         grid-template-columns: 1fr;
-        gap: 15px;
     }
 
     .clock-card {
-        padding: 20px;
+        padding: 25px;
     }
 
     .digital-clock {
-        font-size: 2.2em;
-        padding: 20px;
-        min-height: 80px;
+        font-size: 2.5em;
+        padding: 30px 20px;
+        min-height: 100px;
+        letter-spacing: 2px;
     }
 
-    .timezone-name {
-        font-size: 1.1em;
+    .main-content {
+        padding: 30px 20px;
     }
 }
 
@@ -319,16 +626,36 @@ body {
     }
 
     .header h1 {
-        font-size: 1.5em;
+        font-size: 1.6em;
+    }
+
+    .header p {
+        font-size: 1em;
     }
 
     .digital-clock {
-        font-size: 1.8em;
-        padding: 15px;
-        min-height: 70px;
+        font-size: 2em;
+        padding: 20px 15px;
+        min-height: 80px;
     }
 
-    .timezone-select {
-        font-size: 0.9em;
+    .timezone-name {
+        font-size: 1.2em;
+    }
+
+    .quick-add-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .add-timezone-section {
+        padding: 25px 20px;
+    }
+
+    .empty-state {
+        padding: 60px 15px;
+    }
+
+    .empty-icon {
+        font-size: 3.5em;
     }
 }
